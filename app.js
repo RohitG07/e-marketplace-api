@@ -38,6 +38,10 @@ app.use(cookieParser(process.env.JWT_SECRET_KEY));
 app.use(express.static("./public"));
 app.use(fileUpload());
 
+app.get("/", function(req, res) {
+  res.send("running");
+})
+
 app.use("/api/auth", authenticationRouter);
 app.use("/api/products", productRouter);
 app.use("/api/reviews", reviewRouter);
