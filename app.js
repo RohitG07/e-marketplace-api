@@ -42,13 +42,13 @@ app.use(cookieParser(process.env.JWT_SECRET_KEY));
 app.use(express.static("./public"));
 app.use(fileUpload());
 
-app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
-
 app.use("/api/auth", authenticationRouter);
 app.use("/api/products", productRouter);
 app.use("/api/reviews", reviewRouter);
 app.use("/api/users", authenticateUser, userRouter);
 app.use("/api/orders", orderRouter);
+
+app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
