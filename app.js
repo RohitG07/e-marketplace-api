@@ -11,6 +11,10 @@ const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDoc = YAML.load("./swagger-docs.yaml");
+
 const authenticationRouter = require("./routes/authenticationRoutes");
 const userRouter = require("./routes/userRoutes");
 const productRouter = require("./routes/productRoutes");
@@ -38,9 +42,7 @@ app.use(cookieParser(process.env.JWT_SECRET_KEY));
 app.use(express.static("./public"));
 app.use(fileUpload());
 
-app.get("/", function(req, res) {
-  res.send("running");
-})
+app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 app.use("/api/auth", authenticationRouter);
 app.use("/api/products", productRouter);

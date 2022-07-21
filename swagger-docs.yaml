@@ -1,0 +1,734 @@
+openapi: 3.0.0
+info:
+  title: E-Marketplace API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://e-marketplace-123.herokuapp.com/api
+  variables: {}
+paths:
+  /auth/signup:
+    post:
+      tags:
+      - Authentication
+      summary: SIGNUP USER
+      operationId: SIGNUPUSER
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SIGNUPUSERREQUEST'
+            example:
+              name: Felix
+              email: felix@gmail.com
+              password: '12345678'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Authentication
+      summary: LOGIN USER
+      operationId: LOGINUSER
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LOGINUSERREQUEST'
+            example:
+              email: felix@gmail.com
+              password: '12345678'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/logout:
+    get:
+      tags:
+      - Authentication
+      summary: LOGOUT USER
+      operationId: LOGOUTUSER
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /users:
+    get:
+      tags:
+      - User
+      summary: GET ALL USERS
+      operationId: GETALLUSERS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+  /users/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema: { type: string }
+        required: true
+        description: The user Id
+    get:
+      tags:
+      - User
+      summary: GET SINGLE USER
+      operationId: GETSINGLEUSER
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+  /users/showMe:
+    get:
+      tags:
+      - User
+      summary: GET CURRENT USER
+      operationId: GETCURRENTUSER
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+  /users/updateUser:
+    patch:
+      tags:
+      - User
+      summary: UPDATE USER
+      operationId: UPDATEUSER
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UPDATEUSERREQUEST'
+            example:
+              email: felix@gmail.com
+              name: mike
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+  /users/updateUserPassword:
+    patch:
+      tags:
+      - User
+      summary: UPDATE USER PASSWORD
+      operationId: UPDATEUSERPASSWORD
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UPDATEUSERPASSWORDREQUEST'
+            example:
+              oldPassword: '12345678'
+              newPassword: '87654321'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+  /products:
+    get:
+      tags:
+      - Product
+      summary: GET ALL PRODUCTS
+      operationId: GETALLPRODUCTS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    post:
+      tags:
+      - Product
+      summary: CREATE SINGLE PRODUCT
+      operationId: CREATESINGLEPRODUCT
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CREATESINGLEPRODUCTREQUEST'
+            example:
+              name: chair
+              price: 1972
+              image: /uploads/chair.jpeg
+              colors:
+              - '#000'
+              - '#00ff00'
+              - '#2200ff'
+              company: ikea
+              description: Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf.
+              category: bedroom
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+  /products/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema: { type: string }
+        required: true
+        description: The product Id
+    get:
+      tags:
+      - Product
+      summary: GET SINGLE PRODUCT
+      operationId: GETSINGLEPRODUCT
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    delete:
+      tags:
+      - Product
+      summary: DELETE PRODUCT
+      operationId: DELETEPRODUCT
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+    patch:
+      tags:
+      - Product
+      summary: UPDATE PRODUCT
+      operationId: UPDATEPRODUCT
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UPDATEPRODUCTREQUEST'
+            example:
+              name: desktop
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+  /products/uploadImage:
+    post:
+      tags:
+      - Product
+      summary: UPLOAD IMAGE
+      operationId: UPLOADIMAGE
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - image
+              type: object
+              properties:
+                image:
+                  type: string
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+  /products/{id}/reviews:
+    parameters:
+      - in: path
+        name: id
+        schema: { type: string }
+        required: true
+        description: The product Id
+    get:
+      tags:
+      - Product
+      summary: GET SINGLE PRODUCT REVIEWS
+      operationId: GETSINGLEPRODUCTREVIEWS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /reviews:
+    get:
+      tags:
+      - Review
+      summary: GET ALL REVIEWS
+      operationId: GETALLREVIEWS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+      - Review
+      summary: CREATE REVIEW
+      operationId: CREATEREVIEW
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CREATEREVIEWREQUEST'
+            example:
+              product: 62d7b5a0082a777a576515fa
+              rating: 3
+              title: Decent product
+              comment: Should have better durability
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+  /reviews/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema: { type: string }
+        required: true
+        description: The Review Id
+    get:
+      tags:
+      - Review
+      summary: GET SINGLE REVIEW
+      operationId: GETSINGLEREVIEW
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+      - Review
+      summary: DELETE REVIEW
+      operationId: DELETEREVIEW
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+    patch:
+      tags:
+      - Review
+      summary: EDIT REVIEW
+      operationId: EDITREVIEW
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EDITREVIEWREQUEST'
+            example:
+              rating: 5
+              title: Awesome
+              comment: Best quality
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+  /orders:
+    get:
+      tags:
+      - Order
+      summary: GET ALL ORDERS
+      operationId: GETALLORDERS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+    post:
+      tags:
+      - Order
+      summary: CREATE SINGLE ORDER
+      operationId: CREATESINGLEORDER
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CREATESINGLEORDERREQUEST'
+            example:
+              tax: 399
+              shippingFee: 499
+              items:
+              - name: sofa
+                price: 3000
+                image: https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160
+                amount: 12
+                product: 62d7b5a0082a777a576515fa
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+  /orders/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema: { type: string }
+        required: true
+        description: The Order Id
+    get:
+      tags:
+      - Order
+      summary: GET SINGLE ORDER
+      operationId: GETSINGLEORDER
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+    patch:
+      tags:
+      - Order
+      summary: UPDATE SINGLE ORDER
+      operationId: UPDATESINGLEORDER
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UPDATESINGLEORDERREQUEST'
+            example:
+              paymentIntentId: '3421'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+  /orders/showAllMyOrders:
+    get:
+      tags:
+      - Order
+      summary: GET CURRENT USER ORDERS
+      operationId: GETCURRENTUSERORDERS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - cookieAuth: []
+components:
+  securitySchemes:
+      cookieAuth:
+        type: apiKey
+        in: cookie
+        name: token
+
+  schemas:
+    SIGNUPUSERREQUEST:
+      title: SIGNUPUSERREQUEST
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: jim
+        email: jim@gmail.com
+        password: '12345678'
+    LOGINUSERREQUEST:
+      title: LOGINUSERREQUEST
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: jim@gmail.com
+        password: '12345678'
+    UPDATEUSERREQUEST:
+      title: UPDATEUSERREQUEST
+      required:
+      - email
+      - name
+      type: object
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+      example:
+        email: xqc@b.com
+        name: rgb
+    UPDATEUSERPASSWORDREQUEST:
+      title: UPDATEUSERPASSWORDREQUEST
+      required:
+      - oldPassword
+      - newPassword
+      type: object
+      properties:
+        oldPassword:
+          type: string
+        newPassword:
+          type: string
+      example:
+        oldPassword: '87654321'
+        newPassword: '00000000'
+    CREATESINGLEPRODUCTREQUEST:
+      title: CREATESINGLEPRODUCTREQUEST
+      required:
+      - name
+      - price
+      - image
+      - colors
+      - company
+      - description
+      - category
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        image:
+          type: string
+        colors:
+          type: array
+          items:
+            type: string
+          description: ''
+        company:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+      example:
+        name: chair
+        price: 1332
+        image: /uploads/chair.jpeg
+        colors:
+        - '#000'
+        - '#00ff00'
+        - '#0000ff'
+        company: ikea
+        description: Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal.
+        category: bedroom
+    UPDATEPRODUCTREQUEST:
+      title: UPDATEPRODUCTREQUEST
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: desktop
+    CREATEREVIEWREQUEST:
+      title: CREATEREVIEWREQUEST
+      required:
+      - product
+      - rating
+      - title
+      - comment
+      type: object
+      properties:
+        product:
+          type: string
+        rating:
+          type: integer
+          format: int32
+        title:
+          type: string
+        comment:
+          type: string
+      example:
+        product: 62d7b5a0082a777a576515fa
+        rating: 2
+        title: okayish
+        comment: ok
+    EDITREVIEWREQUEST:
+      title: EDITREVIEWREQUEST
+      required:
+      - rating
+      - title
+      - comment
+      type: object
+      properties:
+        rating:
+          type: integer
+          format: int32
+        title:
+          type: string
+        comment:
+          type: string
+      example:
+        rating: 2
+        title: ok
+        comment: trash
+    CREATESINGLEORDERREQUEST:
+      title: CREATESINGLEORDERREQUEST
+      required:
+      - tax
+      - shippingFee
+      - items
+      type: object
+      properties:
+        tax:
+          type: integer
+          format: int32
+        shippingFee:
+          type: integer
+          format: int32
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+          description: ''
+      example:
+        tax: 399
+        shippingFee: 499
+        items:
+        - name: accent chair
+          price: 2599
+          image: https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160
+          amount: 34
+          product: 62d7b5a0082a777a576515fa
+    Item:
+      title: ITEM
+      required:
+      - name
+      - price
+      - image
+      - amount
+      - product
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        image:
+          type: string
+        amount:
+          type: integer
+          format: int32
+        product:
+          type: string
+      example:
+        name: accent chair
+        price: 2599
+        image: https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160
+        amount: 34
+        product: 62d7b5a0082a777a576515fa
+    UPDATESINGLEORDERREQUEST:
+      title: UPDATESINGLEORDERREQUEST
+      required:
+      - paymentIntentId
+      type: object
+      properties:
+        paymentIntentId:
+          type: string
+      example:
+        paymentIntentId: '124'
+security:
+- {}
+tags:
+- name: Authentication
+- name: User
+- name: Product
+- name: Review
+- name: Order
